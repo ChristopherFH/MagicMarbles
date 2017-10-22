@@ -43,6 +43,8 @@ namespace MagicMarbles.ViewModel
             ////}
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<GameViewModel>();
+            SimpleIoc.Default.Register<InfoViewModel>();
         }
 
         public MainViewModel Main
@@ -52,7 +54,23 @@ namespace MagicMarbles.ViewModel
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
-        
+
+        public GameViewModel Game
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<GameViewModel>();
+            }
+        }
+
+        public InfoViewModel Info
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<InfoViewModel>();
+            }
+        }
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
