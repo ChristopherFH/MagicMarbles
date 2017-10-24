@@ -48,6 +48,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -69,10 +71,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModel\GameViewModel.cs" />
-    <Compile Include="ViewModel\InfoViewModel.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="Helpers\MarbleGame.cs" />
+    <Compile Include="Interfaces\IButtonFactory.cs" />
+    <Compile Include="Interfaces\ICustomGrid.cs" />
+    <Compile Include="Model\CustomBlueButton.cs" />
+    <Compile Include="Model\CustomButton.cs" />
+    <Compile Include="Model\CustomGreenButton.cs" />
+    <Compile Include="Model\CustomGrid.cs" />
+    <Compile Include="Model\CustomRedButton.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Helpers\ButtonFactory.cs" />
+    <Compile Include="Utils\Enums.cs" />
+    <Compile Include="Utils\RandomNumberGenerator.cs" />
+    <Compile Include="ViewModels\GameViewModel.cs" />
+    <Compile Include="ViewModels\InfoViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Utils\ViewModelLocator.cs" />
+    <Page Include="Views\Dictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\GamePageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -128,16 +146,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
+    <Folder Include="Converters\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\ic_info.png" />
+    <Resource Include="Assets\play.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\whatshot.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\ic_poll_black_48dp_2x.png" />
+    <Resource Include="Assets\highscore.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
