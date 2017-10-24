@@ -71,7 +71,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Helpers\MarbleGame.cs" />
+    <Compile Include="Extensions\ObservableExtension.cs" />
+    <Compile Include="Helpers\MarbleGameHandler.cs" />
     <Compile Include="Interfaces\IButtonFactory.cs" />
     <Compile Include="Interfaces\ICustomGrid.cs" />
     <Compile Include="Model\CustomBlueButton.cs" />
@@ -145,9 +146,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Converters\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Assets\play.png" />
   </ItemGroup>

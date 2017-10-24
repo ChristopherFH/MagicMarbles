@@ -22,7 +22,7 @@ namespace MagicMarbles.ViewModels
                 RaisePropertyChanged();
             }
         }
-        
+
         private int _row;
         public int Row
         {
@@ -61,13 +61,13 @@ namespace MagicMarbles.ViewModels
             {
                 Row = gridsize.Rows;
                 Column = gridsize.Columns;
-                Buttons = MarbleGame.BoardSetup(Row, Column, SelectButtonCommand);
+                Buttons = MarbleGameHandler.BoardSetup(Row, Column, SelectButtonCommand);
             }
         }
 
         private void SelectButton(object commandparam)
         {
-           MarbleGame.HideButton(Buttons, commandparam);
+
         }
     }
 }

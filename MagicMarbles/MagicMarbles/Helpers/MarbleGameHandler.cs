@@ -13,7 +13,7 @@ using MagicMarbles.Utils;
 
 namespace MagicMarbles.Helpers
 {
-    public static class MarbleGame
+    public static class MarbleGameHandler
     {
 
         private static readonly ButtonFactory Factory = new ButtonFactory();
@@ -32,14 +32,15 @@ namespace MagicMarbles.Helpers
             return buttons;
         }
 
-        public static void HideButton(ObservableCollection<Button> buttons, Object commandparam)
-        {
-            var command = Convert.ToString(commandparam);
-            Console.WriteLine(@"Button: {0}", command);
-
-            //             Change color of button 
-            //            Buttons[Convert.ToInt32(command)].Background = new SolidColorBrush(Color.FromRgb(0, 0, 0));
-            buttons[Convert.ToInt32(command)].Visibility = Visibility.Hidden;
-        }
+//        public static void HideButton(ObservableCollection<Button> buttons, Object commandparam)
+//        {
+//            var command = Convert.ToString(commandparam);
+//            Console.WriteLine(@"Button: {0}", command);
+//
+//            //             Change color of button 
+//            //            Buttons[Convert.ToInt32(command)].Background = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+//            buttons[Convert.ToInt32(command)].Visibility = Visibility.Hidden;
+//        }
     }
+
 }
