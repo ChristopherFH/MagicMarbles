@@ -73,7 +73,9 @@ namespace MagicMarbles.Utils
 
         public static void Cleanup()
         {
-            // TODO Clear the ViewModels
+            SimpleIoc.Default.Unregister<InfoViewModel>();
+            SimpleIoc.Default.Unregister<MainViewModel>();
+            SimpleIoc.Default.Unregister<GameViewModel>();
         }
     }
 }

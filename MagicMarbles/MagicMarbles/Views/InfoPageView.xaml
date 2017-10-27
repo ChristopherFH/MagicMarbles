@@ -8,6 +8,13 @@
              DataContext="{Binding Source={StaticResource Locator}, Path=Info}"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <TextBlock Margin="0" TextWrapping="Wrap" Text="Information" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Grid.Background>
+            <ImageBrush ImageSource="/MagicMarbles;component/Assets/backround.png" Opacity="0.7"/>
+        </Grid.Background>
+        <TextBlock Margin="25,0,25,0" TextWrapping="Wrap" Text="Click on a single marble which has neighbors the same color to remove 
+them. You win, if you can pop all marbles and no ones are left. You lose if there are remaining ones. 
+
+ " HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Center" TextAlignment="Center" Foreground="White"/>
+        <TextBlock Margin="0,0,0,15" TextWrapping="Wrap" Text="Copyright © 2017 by Christopher Koellner" HorizontalAlignment="Center" VerticalAlignment="Bottom" TextAlignment="Center" Foreground="White"/>
     </Grid>
 </UserControl>

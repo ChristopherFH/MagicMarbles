@@ -1,8 +1,11 @@
 using System;
+using System.ComponentModel;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using MagicMarbles.Model;
+using MagicMarbles.Utils;
 
 namespace MagicMarbles.ViewModels
 {
@@ -24,18 +27,26 @@ namespace MagicMarbles.ViewModels
         }
 
         private int _highscore;
-
         public int Highscore
         {
             get => _highscore;
             set
             {
                 _highscore = value;
-                RaisePropertyChanged(); 
+                RaisePropertyChanged();
             }
-            
         }
 
+        private string _winLose;
+        public string WinLose
+        {
+            get => _winLose;
+            set
+            {
+                _winLose = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public CustomGrid CustomGrid { get; set; }
 
@@ -55,22 +66,53 @@ namespace MagicMarbles.ViewModels
             StartGameCommand = new RelayCommand(StartGame);
             CurrentViewModel = new GameViewModel();
             CustomGrid = new CustomGrid(Rows, Columns);
+            RegisterReceiver();
+            WinLose = "";
+        }
+
+        private void RegisterReceiver()
+        {
             Messenger.Default.Register<int>
             (
                 this,
                 SetHighscore
             );
+            Messenger.Default.Register<string>
+            (
+                this,
+                SetWinLose
+            );
+        }
+
+        private void SetWinLose(string winlose)
+        {
+            WinLose = winlose;
+        }
+
+        public ICommand WindowClosing
+        {
+            get
+            {
+                return new RelayCommand<CancelEventArgs>(
+                    (args) =>
+                    {
+                        ViewModelLocator.Cleanup();
+                    });
+            }
         }
 
         private void SetHighscore(int highscore)
         {
-            Highscore = highscore;
+            if (WinLose == string.Empty)
+            {
+                Highscore = highscore;
+            }
         }
-
 
         public void StartGame()
         {
-            Highscore = 0; 
+            WinLose = string.Empty;
+            Highscore = 0;
             CurrentViewModel = new GameViewModel();
             Messenger.Default.Send<CustomGrid>(CustomGrid);
         }
@@ -87,10 +129,10 @@ namespace MagicMarbles.ViewModels
             CurrentViewModel = new GameViewModel();
         }
 
-        public void ChangeToHighscore()
-        {
-            //TODO: must be implemented later
-        }
+        //        public void ChangeToHighscore()
+        //        {
+        //            //TODO: must be implemented later
+        //        }
 
         #endregion
     }

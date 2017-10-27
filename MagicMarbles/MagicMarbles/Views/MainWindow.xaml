@@ -6,10 +6,17 @@
         xmlns:local="clr-namespace:MagicMarbles"
         xmlns:views="clr-namespace:MagicMarbles.Views"
         xmlns:viewModels="clr-namespace:MagicMarbles.ViewModels"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:command="http://www.galasoft.ch/mvvmlight"
         mc:Ignorable="d"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
         ResizeMode="NoResize"
         Title="Magic Marbles" Height="576" Width="915">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <command:EventToCommand Command="{Binding WindowClosing}" PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewModels:GameViewModel}">
             <views:GamePageView />
@@ -109,7 +116,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-       
+
     </Window.Resources>
     <Grid>
         <Grid Background="#000000">
@@ -122,7 +129,8 @@
                 <TextBox Width="100" Height="30" Text="{Binding CustomGrid.Rows, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontSize="20"/>
                 <TextBlock TextWrapping="Wrap" Foreground="White" Text="Columns" Margin="25,9,25,0" FontSize="20" TextDecorations="{x:Null}" HorizontalAlignment="Right"/>
                 <TextBox Width="100" Height="30" Text="{Binding CustomGrid.Columns, Mode=TwoWay}" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
-                <TextBlock TextWrapping="Wrap" Text="{Binding Highscore, Mode=TwoWay}"  Foreground="White" Margin="200,9,0,0" FontSize="20" TextDecorations="{x:Null}" HorizontalAlignment="Right"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding WinLose, Mode=TwoWay}"  Foreground="White" Margin="110,9,0,0" FontSize="20" TextDecorations="{x:Null}" HorizontalAlignment="Right"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Highscore, Mode=TwoWay}"  Foreground="White" Margin="90,9,0,0" FontSize="20" TextDecorations="{x:Null}" HorizontalAlignment="Right"/>
             </StackPanel>
             <DockPanel LastChildFill="False" Background="#992D364C" Margin="0,0,4.2,0.2">
                 <Button BorderThickness="0" DockPanel.Dock="Top" VerticalAlignment="Top" Margin="0,0,0,10" Height="120" Command="{Binding ChangeToGamePageCommand}" Background="#FF1B202E" Style="{DynamicResource SideBarButtons}">
@@ -131,15 +139,15 @@
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" FontSize="20" Foreground="White">Game</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button BorderThickness="0" DockPanel.Dock="Top" Margin="0,0,0,10" Height="120" Background="#FF1B202E" Style="{DynamicResource SideBarButtons}">
-                    <StackPanel Orientation="Vertical" Margin="0">
-                        <Image Source="../Assets/highscore.png" Width="40" Margin="0,0,0,0" />
-                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Margin="0" FontSize="20">Highscore</TextBlock>
-                    </StackPanel>
-                </Button>
+                <!--                <Button BorderThickness="0" DockPanel.Dock="Top" Margin="0,0,0,10" Height="120" Background="#FF1B202E" Style="{DynamicResource SideBarButtons}">-->
+                <!--                    <StackPanel Orientation="Vertical" Margin="0">-->
+                <!--                        <Image Source="../Assets/highscore.png" Width="40" Margin="0,0,0,0" />-->
+                <!--                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Margin="0" FontSize="20">Highscore</TextBlock>-->
+                <!--                    </StackPanel>-->
+                <!--                </Button>-->
                 <Button BorderThickness="0" DockPanel.Dock="Top" Margin="0" Height="100" Background="#FF1B202E" Command="{Binding ChangeToInfoPageCommand}" Style="{DynamicResource SideBarButtons}">
                     <StackPanel Orientation="Vertical">
-                        <Image Source="../Assets/info.png" Width="40" Margin="0,0,0,10" />
+                        <Image Source="../Assets/info.png" Width="35" Margin="0,0,0,10" />
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Margin="0" FontSize="25">Info</TextBlock>
                     </StackPanel>
                 </Button>
@@ -153,3 +161,4 @@
         </Grid>
     </Grid>
 </Window>
+

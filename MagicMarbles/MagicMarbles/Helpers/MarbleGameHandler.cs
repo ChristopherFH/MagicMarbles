@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using MagicMarbles.Extensions;
 using MagicMarbles.Model;
 using MagicMarbles.Utils;
@@ -13,7 +15,6 @@ namespace MagicMarbles.Helpers
 {
     public static class MarbleGame
     {
-
         private static readonly ButtonFactory Factory = new ButtonFactory();
         private static readonly int NumberOfEnums = Enum.GetNames(typeof(Enums.Colors)).Length;
         private static CustomGrid Grid { get; set; }
@@ -25,6 +26,7 @@ namespace MagicMarbles.Helpers
         public static ObservableCollection<Button> BoardSetup(int row, int column,
             RelayCommand<object> selectButtonCommand)
         {
+            Highscore = 0; 
             _cells2Swap = new List<int>();
             Grid = new CustomGrid(row, column);
             ObservableCollection<Button> buttons = new ObservableCollection<Button>();
@@ -44,14 +46,14 @@ namespace MagicMarbles.Helpers
             _cells2Swap.Clear();
 
             _cells2Swap.Add((int)commandparam);
-            var btnIndexes = GetIndexes((int)commandparam);
-
-            CheckNeighbors(btnIndexes);
+            CheckNeighbors(GetIndexes((int)commandparam));
             _cells2Swap.Sort();
 
             MoveVertically();
             MoveHorizontally();
             CalculateHighscore(); 
+            _cells2Swap.Clear();
+
             return _cells.Array2DToCollection();
         }
 
@@ -64,6 +66,32 @@ namespace MagicMarbles.Helpers
             return Highscore; 
         }
 
+        public static string CheckWinLose()
+        {
+            _buttons = _cells.Array2DToCollection(); 
+            if (_buttons.All(x => x.Visibility == Visibility.Hidden))
+            {
+                return "You Win!";
+            }
+            var moreMoves = false; 
+            var items = _buttons.ToList().FindAll(Predicate.ByVisibility(Visibility.Visible));
+            foreach (var item in items)
+            {
+                CheckNeighbors(GetIndexes((int) item.CommandParameter));
+                if (_cells2Swap.Count > 1)
+                {
+                    moreMoves = true;
+                    break; 
+                }
+            }
+            if (moreMoves)
+            {
+                return string.Empty;
+            }
+            Highscore = Highscore - items.Count * 10; 
+            return "You Lose!";
+        }
+      
         private static void MoveVertically()
         {
             if (_cells2Swap.Count <= 1) return;

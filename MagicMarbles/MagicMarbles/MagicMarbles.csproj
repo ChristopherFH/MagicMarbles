@@ -83,6 +83,7 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Helpers\ButtonFactory.cs" />
     <Compile Include="Utils\Enums.cs" />
+    <Compile Include="Utils\Predicate.cs" />
     <Compile Include="Utils\RandomNumberGenerator.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="ViewModels\InfoViewModel.cs" />
