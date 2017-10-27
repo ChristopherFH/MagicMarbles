@@ -1,8 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using MagicMarbles.Extensions;
 using MagicMarbles.Helpers;
 using MagicMarbles.Model;
 
@@ -61,13 +65,14 @@ namespace MagicMarbles.ViewModels
             {
                 Row = gridsize.Rows;
                 Column = gridsize.Columns;
-                Buttons = MarbleGameHandler.BoardSetup(Row, Column, SelectButtonCommand);
+                Buttons = MarbleGame.BoardSetup(Row, Column, SelectButtonCommand);
             }
         }
 
         private void SelectButton(object commandparam)
         {
-
+            Buttons = MarbleGame.MakeMove(Buttons, commandparam);
+            Messenger.Default.Send<int>(MarbleGame.CalculateHighscore());
         }
     }
 }

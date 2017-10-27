@@ -1,3 +1,4 @@
+using System;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -8,11 +9,35 @@ namespace MagicMarbles.ViewModels
 
     public class MainViewModel : ViewModelBase
     {
-        private const int ROWS = 7;
-        private const int COLUMNS = 10;
+        private const int Rows = 7;
+        private const int Columns = 10;
 
-        public ViewModelBase CurrentViewModel { get; set; }
-        public CustomGrid CustomGrid { get; set; } 
+        private ViewModelBase _currentViewModel;
+        public ViewModelBase CurrentViewModel
+        {
+            get => _currentViewModel;
+            set
+            {
+                _currentViewModel = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private int _highscore;
+
+        public int Highscore
+        {
+            get => _highscore;
+            set
+            {
+                _highscore = value;
+                RaisePropertyChanged(); 
+            }
+            
+        }
+
+
+        public CustomGrid CustomGrid { get; set; }
 
         #region Commands
 
@@ -29,12 +54,24 @@ namespace MagicMarbles.ViewModels
             ChangeToGamePageCommand = new RelayCommand(ChangeToGame);
             StartGameCommand = new RelayCommand(StartGame);
             CurrentViewModel = new GameViewModel();
-            CustomGrid = new CustomGrid(ROWS,COLUMNS);
+            CustomGrid = new CustomGrid(Rows, Columns);
+            Messenger.Default.Register<int>
+            (
+                this,
+                SetHighscore
+            );
+        }
+
+        private void SetHighscore(int highscore)
+        {
+            Highscore = highscore;
         }
 
 
         public void StartGame()
         {
+            Highscore = 0; 
+            CurrentViewModel = new GameViewModel();
             Messenger.Default.Send<CustomGrid>(CustomGrid);
         }
 
@@ -43,13 +80,11 @@ namespace MagicMarbles.ViewModels
         public void ChangeToInfo()
         {
             CurrentViewModel = new InfoViewModel();
-            RaisePropertyChanged("CurrentViewModel");
         }
 
         public void ChangeToGame()
         {
             CurrentViewModel = new GameViewModel();
-            RaisePropertyChanged("CurrentViewModel");
         }
 
         public void ChangeToHighscore()

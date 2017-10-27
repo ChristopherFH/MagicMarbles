@@ -11,6 +11,9 @@
        
     </UserControl.Resources>
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/MagicMarbles;component/Assets/backround.png" Opacity="0.7"/>
+        </Grid.Background>
         <ItemsControl ItemsSource="{Binding Buttons}" Margin="0.2,0,0,0">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
