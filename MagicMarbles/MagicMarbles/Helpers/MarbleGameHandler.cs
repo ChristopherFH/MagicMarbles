@@ -36,9 +36,9 @@ namespace MagicMarbles.Helpers
                     selectButtonCommand, i);
                 buttons.Add(btn);
             }
-//            buttons.Shuffle();
-//            _cells = buttons.To2DArray(Grid.Rows, Grid.Columns); 
-//            RenewIndexes();
+            buttons.Shuffle();
+            _cells = buttons.To2DArray(Grid.Rows, Grid.Columns);
+            RenewIndexes();
             return buttons;
         }
 
