@@ -1,3 +1,5 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 # About the game
 MagicMarbles represents a simple C#/WPF MVVMLight implementation in order to generate a small game. 
 In addition the UI has been designed to use a simple FlatUI approach. 
