@@ -129,11 +129,6 @@ namespace MagicMarbles.ViewModels
             CurrentViewModel = new GameViewModel();
         }
 
-        //        public void ChangeToHighscore()
-        //        {
-        //            //TODO: must be implemented later
-        //        }
-
         #endregion
     }
 }
