@@ -10,4 +10,9 @@ The more marbles you can eliminate in one step the more points you earn.
 # Used Libraries
 - MVVMLight
 
-# Used Libraries
+# Screenshots
+## New Game Started
+![Alt text](https://github.com/ChristopherFH/MagicMarbles/blob/master/MagicMarbles/MagicMarbles/Assets/Screenshot.png "New Game Started")
+
+## Lost the Game
+![Alt text](https://github.com/ChristopherFH/MagicMarbles/blob/master/MagicMarbles/MagicMarbles/Assets/Screenshot_1.png "Lost the Game")
