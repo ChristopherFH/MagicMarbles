@@ -111,10 +111,12 @@ namespace MagicMarbles.ViewModels
 
         public void StartGame()
         {
-            WinLose = string.Empty;
-            Highscore = 0;
-            CurrentViewModel = new GameViewModel();
-            Messenger.Default.Send<CustomGrid>(CustomGrid);
+   
+                WinLose = string.Empty;
+                Highscore = 0;
+                CurrentViewModel = new GameViewModel();
+                Messenger.Default.Send<CustomGrid>(CustomGrid);
+            
         }
 
         #region ChangePageMethods

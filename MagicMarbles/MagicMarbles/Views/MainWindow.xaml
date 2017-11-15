@@ -8,6 +8,8 @@
         xmlns:viewModels="clr-namespace:MagicMarbles.ViewModels"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:command="http://www.galasoft.ch/mvvmlight"
+        xmlns:extensions="clr-namespace:MagicMarbles.Extensions"
+        xmlns:helpers="clr-namespace:MagicMarbles.Helpers"
         mc:Ignorable="d"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
         ResizeMode="NoResize"
@@ -126,9 +128,25 @@
             </Grid.ColumnDefinitions>
             <StackPanel Height="45" Orientation="Horizontal" VerticalAlignment="Bottom" Background="#992D364C" HorizontalAlignment="Right" Margin="0,0,-0.2,0" Width="790" Grid.ColumnSpan="2">
                 <TextBlock TextWrapping="Wrap" Text="Rows" Foreground="White" Margin="25,9,25,0" FontSize="20" TextDecorations="{x:Null}" HorizontalAlignment="Right"/>
-                <TextBox Width="100" Height="30" Text="{Binding CustomGrid.Rows, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontSize="20"/>
-                <TextBlock TextWrapping="Wrap" Foreground="White" Text="Columns" Margin="25,9,25,0" FontSize="20" TextDecorations="{x:Null}" HorizontalAlignment="Right"/>
-                <TextBox Width="100" Height="30" Text="{Binding CustomGrid.Columns, Mode=TwoWay}" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+                <TextBox Width="100" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontSize="20">
+                    <TextBox.Text>
+                        <Binding Path="CustomGrid.Rows" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <helpers:TextBoxRangeRule Min="2"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBlock TextWrapping="Wrap" Foreground="White" Text="Columns" Margin="25,9,25,0" FontSize="20" TextDecorations="{x:Null}" HorizontalAlignment="Right"></TextBlock>
+                <TextBox Width="100" Height="30" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center">
+                    <TextBox.Text>
+                        <Binding Path="CustomGrid.Columns" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <helpers:TextBoxRangeRule Min="2"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
                 <TextBlock TextWrapping="Wrap" Text="{Binding WinLose, Mode=TwoWay}"  Foreground="White" Margin="110,9,0,0" FontSize="20" TextDecorations="{x:Null}" HorizontalAlignment="Right"/>
                 <TextBlock TextWrapping="Wrap" Text="{Binding Highscore, Mode=TwoWay}"  Foreground="White" Margin="90,9,0,0" FontSize="20" TextDecorations="{x:Null}" HorizontalAlignment="Right"/>
             </StackPanel>

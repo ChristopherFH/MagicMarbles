@@ -61,7 +61,7 @@ namespace MagicMarbles.ViewModels
 
         private void ReceiveGridSize(CustomGrid gridsize)
         {
-            if (gridsize.Rows > 0 && gridsize.Columns > 0)//&&(Row != gridsize.Rows || Column != gridsize.Columns))
+            if (gridsize.Rows > 0 && gridsize.Columns > 0) //&& (Row != gridsize.Rows || Column != gridsize.Columns))
             {
                 Row = gridsize.Rows;
                 Column = gridsize.Columns;
