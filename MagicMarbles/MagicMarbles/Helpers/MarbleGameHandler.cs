@@ -18,7 +18,7 @@ namespace MagicMarbles.Helpers
         private static readonly ButtonFactory Factory = new ButtonFactory();
         private static readonly int NumberOfEnums = Enum.GetNames(typeof(Enums.Colors)).Length;
         private static CustomGrid Grid { get; set; }
-        private static int Highscore { get; set; }
+        public static int Highscore { get; set; }
         private static Button[,] _cells;
         private static List<int> _cells2Swap;
         private static ObservableCollection<Button> _buttons;
@@ -51,10 +51,9 @@ namespace MagicMarbles.Helpers
             _cells2Swap.Add((int)commandparam);
             CheckNeighbors(GetIndexes((int)commandparam));
             _cells2Swap.Sort();
-
+            CalculateHighscore();
             MoveVertically();
             MoveHorizontally();
-            CalculateHighscore(); 
             _cells2Swap.Clear();
 
             return _cells.Array2DToCollection();
