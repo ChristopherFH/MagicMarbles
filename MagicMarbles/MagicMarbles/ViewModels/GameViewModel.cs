@@ -14,6 +14,7 @@ namespace MagicMarbles.ViewModels
 {
     public class GameViewModel : ViewModelBase
     {
+        public MarbleGameHandler GameHandler; 
         public RelayCommand<object> SelectButtonCommand { get; set; }
 
         private ObservableCollection<Button> _btn;
@@ -52,6 +53,7 @@ namespace MagicMarbles.ViewModels
         public GameViewModel()
         {
             SelectButtonCommand = new RelayCommand<object>(SelectButton);
+            GameHandler = new MarbleGameHandler();
             Messenger.Default.Register<CustomGrid>
             (
                 this,
@@ -65,15 +67,15 @@ namespace MagicMarbles.ViewModels
             {
                 Row = gridsize.Rows;
                 Column = gridsize.Columns;
-                Buttons = MarbleGame.BoardSetup(Row, Column, SelectButtonCommand);
+                Buttons = GameHandler.BoardSetup(Row, Column, SelectButtonCommand);
             }
         }
 
         private void SelectButton(object commandparam)
         {
-            Buttons = MarbleGame.MakeMove(Buttons, commandparam);
-            Messenger.Default.Send<string>(MarbleGame.CheckWinLose());
-            Messenger.Default.Send<int>(MarbleGame.Highscore);
+            Buttons = GameHandler.MakeMove(Buttons, commandparam);
+            Messenger.Default.Send<string>(GameHandler.CheckWinLose());
+            Messenger.Default.Send<int>(GameHandler.Highscore);
         }
-    }
+}
 }

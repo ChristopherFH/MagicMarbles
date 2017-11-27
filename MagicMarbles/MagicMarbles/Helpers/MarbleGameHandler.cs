@@ -6,33 +6,42 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
 using MagicMarbles.Extensions;
+using MagicMarbles.Interfaces;
 using MagicMarbles.Model;
 using MagicMarbles.Utils;
 
 namespace MagicMarbles.Helpers
 {
-    public static class MarbleGame
+    public class MarbleGameHandler : IGameHandler
     {
-        private static readonly ButtonFactory Factory = new ButtonFactory();
-        private static readonly int NumberOfEnums = Enum.GetNames(typeof(Enums.Colors)).Length;
-        private static CustomGrid Grid { get; set; }
-        public static int Highscore { get; set; }
-        private static Button[,] _cells;
-        private static List<int> _cells2Swap;
-        private static ObservableCollection<Button> _buttons;
+        #region Properties
 
-        public static ObservableCollection<Button> BoardSetup(int row, int column,
-            RelayCommand<object> selectButtonCommand)
+        private CustomGrid Grid { get; set; }
+        public int Highscore { get; set; }
+
+        #endregion
+
+        #region fields
+
+        private readonly ButtonFactory _factory = new ButtonFactory();
+        private readonly int _numberOfEnums = Enum.GetNames(typeof(Enums.Colors)).Length;
+        private Button[,] _cells;
+        private List<int> _cells2Swap;
+        private ObservableCollection<Button> _buttons;
+
+        #endregion
+
+        public ObservableCollection<Button> BoardSetup(int row, int column, RelayCommand<object> selectButtonCommand)
         {
-            Highscore = 0; 
+            Highscore = 0;
             _cells2Swap = new List<int>();
             Grid = new CustomGrid(row, column);
-            ObservableCollection<Button> buttons = new ObservableCollection<Button>();
-            for (int i = 0; i < row * column; i++)
+            var buttons = new ObservableCollection<Button>();
+
+            for (var i = 0; i < row * column; i++)
             {
-                CustomButton btn = Factory.CreateRandomButton(RandomNumberGenerator.Dice(0, NumberOfEnums),
+                CustomButton btn = _factory.CreateRandomButton(RandomNumberGenerator.Dice(0, _numberOfEnums),
                     selectButtonCommand, i);
                 buttons.Add(btn);
             }
@@ -42,14 +51,14 @@ namespace MagicMarbles.Helpers
             return buttons;
         }
 
-        public static ObservableCollection<Button> MakeMove(ObservableCollection<Button> buttons, object commandparam)
+        public ObservableCollection<Button> MakeMove(ObservableCollection<Button> buttons, object commandparam)
         {
             _cells = buttons.To2DArray(Grid.Rows, Grid.Columns);
             _buttons = buttons;
             _cells2Swap.Clear();
 
-            _cells2Swap.Add((int)commandparam);
-            CheckNeighbors(GetIndexes((int)commandparam));
+            _cells2Swap.Add((int) commandparam);
+            CheckNeighbors(GetIndexes((int) commandparam));
             _cells2Swap.Sort();
             CalculateHighscore();
             MoveVertically();
@@ -59,23 +68,23 @@ namespace MagicMarbles.Helpers
             return _cells.Array2DToCollection();
         }
 
-        public static int CalculateHighscore()
+        public int CalculateHighscore()
         {
             if (_cells2Swap.Count > 1)
             {
                 Highscore = Highscore + _cells2Swap.Count * _cells2Swap.Count;
             }
-            return Highscore; 
+            return Highscore;
         }
 
-        public static string CheckWinLose()
+        public string CheckWinLose()
         {
-            _buttons = _cells.Array2DToCollection(); 
+            _buttons = _cells.Array2DToCollection();
             if (_buttons.All(x => x.Visibility == Visibility.Hidden))
             {
                 return "You Win!";
             }
-            var moreMoves = false; 
+            var moreMoves = false;
             var items = _buttons.ToList().FindAll(Predicate.ByVisibility(Visibility.Visible));
             foreach (var item in items)
             {
@@ -83,18 +92,18 @@ namespace MagicMarbles.Helpers
                 if (_cells2Swap.Count > 1)
                 {
                     moreMoves = true;
-                    break; 
+                    break;
                 }
             }
             if (moreMoves)
             {
                 return string.Empty;
             }
-            Highscore = Highscore - items.Count * 10; 
+            Highscore = Highscore - items.Count * 10;
             return "You Lose!";
         }
-      
-        private static void MoveVertically()
+
+        private void MoveVertically()
         {
             if (_cells2Swap.Count <= 1) return;
             foreach (var cells in _cells2Swap)
@@ -120,7 +129,7 @@ namespace MagicMarbles.Helpers
             }
         }
 
-        private static void MoveHorizontally()
+        private void MoveHorizontally()
         {
             var swapCells = new List<int>();
             for (var k = 0; k < Grid.Columns; k++)
@@ -148,7 +157,7 @@ namespace MagicMarbles.Helpers
             RenewIndexes();
         }
 
-        private static int[] GetIndexes(int commandparam)
+        private int[] GetIndexes(int commandparam)
         {
             var index = new int[2];
             for (var i = 0; i < Grid.Rows; i++)
@@ -165,7 +174,7 @@ namespace MagicMarbles.Helpers
             return index;
         }
 
-        private static void RenewIndexes()
+        private void RenewIndexes()
         {
             var index = 0;
             for (var i = 0; i < Grid.Rows; i++)
@@ -178,15 +187,15 @@ namespace MagicMarbles.Helpers
             }
         }
 
-        private static void CheckNeighbors(IReadOnlyList<int> indexes)
+        private void CheckNeighbors(IReadOnlyList<int> indexes)
         {
             var currentCell = _cells[indexes[0], indexes[1]];
-            var right = (int)_cells[indexes[0], indexes[1]].CommandParameter + 1;
-            var left = (int)_cells[indexes[0], indexes[1]].CommandParameter - 1;
-            var top = (int)_cells[indexes[0], indexes[1]].CommandParameter - Grid.Columns;
-            var bottom = (int)_cells[indexes[0], indexes[1]].CommandParameter + Grid.Columns;
+            var right = (int) _cells[indexes[0], indexes[1]].CommandParameter + 1;
+            var left = (int) _cells[indexes[0], indexes[1]].CommandParameter - 1;
+            var top = (int) _cells[indexes[0], indexes[1]].CommandParameter - Grid.Columns;
+            var bottom = (int) _cells[indexes[0], indexes[1]].CommandParameter + Grid.Columns;
 
-            if (top > 0)
+            if (top >= 0)
             {
                 if (currentCell.Background.ToString() == _buttons[top].Background.ToString())
                 {
@@ -197,7 +206,7 @@ namespace MagicMarbles.Helpers
                     }
                 }
             }
-            if (left > 0)
+            if (left >= 0)
             {
                 if (!_cells2Swap.Contains(left))
                 {
@@ -239,4 +248,3 @@ namespace MagicMarbles.Helpers
         }
     }
 }
-

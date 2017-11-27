@@ -132,7 +132,7 @@
                     <TextBox.Text>
                         <Binding Path="CustomGrid.Rows" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
-                                <helpers:TextBoxRangeRule Min="2"/>
+                                <helpers:TextBoxRangeRule Min="2" Max="16"/>
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
@@ -142,7 +142,7 @@
                     <TextBox.Text>
                         <Binding Path="CustomGrid.Columns" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
-                                <helpers:TextBoxRangeRule Min="2"/>
+                                <helpers:TextBoxRangeRule Min="2" Max="16"/>
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>

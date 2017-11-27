@@ -76,6 +76,7 @@
     <Compile Include="Helpers\TextBoxRangeRule.cs" />
     <Compile Include="Interfaces\IButtonFactory.cs" />
     <Compile Include="Interfaces\ICustomGrid.cs" />
+    <Compile Include="Interfaces\IGameHandler.cs" />
     <Compile Include="Model\CustomBlueButton.cs" />
     <Compile Include="Model\CustomButton.cs" />
     <Compile Include="Model\CustomGreenButton.cs" />

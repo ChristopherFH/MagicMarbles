@@ -12,12 +12,13 @@ namespace MagicMarbles.Helpers
     {
 
         public int Min { get; set; }
+        public int Max { get; set; }
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             try
             {
-                if (Int32.Parse((String) value) > Min)
+                if (int.Parse((string) value) > Min && int.Parse((string) value) < Max)
                 {
                     return new ValidationResult(true, null);
                 }
