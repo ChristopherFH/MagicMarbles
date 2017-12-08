@@ -20,6 +20,7 @@ namespace MagicMarbles.Helpers
         private CustomGrid Grid { get; set; }
         public int Highscore { get; set; }
 
+
         #endregion
 
         #region fields

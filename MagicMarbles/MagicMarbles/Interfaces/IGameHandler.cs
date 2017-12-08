@@ -11,7 +11,7 @@ namespace MagicMarbles.Interfaces
 {
     public interface IGameHandler
     {
-
+        int Highscore { get; set; }
         ObservableCollection<Button> BoardSetup(int row, int column, RelayCommand<object> selectButtonCommand);
         ObservableCollection<Button> MakeMove(ObservableCollection<Button> buttons, object commandparam);
         int CalculateHighscore();

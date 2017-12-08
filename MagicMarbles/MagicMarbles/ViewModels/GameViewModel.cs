@@ -8,13 +8,14 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using MagicMarbles.Extensions;
 using MagicMarbles.Helpers;
+using MagicMarbles.Interfaces;
 using MagicMarbles.Model;
 
 namespace MagicMarbles.ViewModels
 {
     public class GameViewModel : ViewModelBase
     {
-        public MarbleGameHandler GameHandler; 
+        public IGameHandler GameHandler; 
         public RelayCommand<object> SelectButtonCommand { get; set; }
 
         private ObservableCollection<Button> _btn;
