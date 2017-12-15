@@ -75,8 +75,8 @@ namespace MagicMarbles.ViewModels
         private void SelectButton(object commandparam)
         {
             Buttons = GameHandler.MakeMove(Buttons, commandparam);
-            Messenger.Default.Send<string>(GameHandler.CheckWinLose());
             Messenger.Default.Send<int>(GameHandler.Highscore);
+            Messenger.Default.Send<string>(GameHandler.CheckWinLose());
         }
-}
+    }
 }
